@@ -7,16 +7,11 @@
 # All rights reserved - Do Not Redistribute
 #
 
-execute "portsnap fetch" do
-  command "portsnap fetch"
-  ignore_failure true
-end
-
 execute "portsnap execute" do 
-  command "portsnap execute"
+  command "portsnap fetch execute"
   ignore_failure true
-  not_if do
-    ::File.exists?('/usr/ports/CHANGES')
+  only_if do
+    ::Dir['/usr/ports/*'].empty?
   end
 end
 
